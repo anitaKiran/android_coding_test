@@ -14,10 +14,8 @@ fun setItems(view: RecyclerView, items: MutableList<Item>?, vm: SearchViewModel)
     view.adapter?.run {
         if (this is ItemsAdapter) {
             if (items != null) {
-                for (i in items ) {
-                    this.items = items
-                    this.notifyDataSetChanged()
-                }
+                this.items += items
+                this.notifyDataSetChanged()
             }
         }
     } ?: run {

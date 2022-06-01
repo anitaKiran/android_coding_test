@@ -7,6 +7,6 @@ import javax.inject.Inject
  * Created by Anita Kiran on 6/1/2022.
  */
 class MainRepository @Inject constructor(private val apiService: ApiService) {
-    suspend fun getItems(searchStr: String): Response<SearchItemModel> =
-        apiService.getRepoItems(searchStr)
+    suspend fun getItems(searchStr:String, perPage:Int, pageNo:Int): Response<SearchItemModel> =
+        apiService.getRepoItems(searchStr,perPage,pageNo)
 }

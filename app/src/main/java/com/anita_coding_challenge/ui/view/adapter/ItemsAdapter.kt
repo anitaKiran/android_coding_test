@@ -32,7 +32,7 @@ class ItemsAdapter(var items: List<Item> = arrayListOf(), val viewModel: SearchV
         holder.viewHolder.viewModel = viewModel
         holder.viewHolder.items?.has_wiki?.let { hasWiki ->
             if(hasWiki) {
-                holder.viewHolder.cardView.setCardBackgroundColor(Color.parseColor("#DFF7FA"))
+                holder.viewHolder.cardLayout.setBackgroundColor(Color.parseColor("#D2E2FF"))
             }
         }
     }

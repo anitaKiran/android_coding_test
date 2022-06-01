@@ -11,6 +11,8 @@ interface ApiService {
 
     @GET("repositories")
     suspend fun getRepoItems(
-        @Query("q") searchStr: String
+        @Query("q") searchStr: String,
+        @Query("per_page") perPage: Int,
+        @Query("page") pageNo: Int
     ) : Response<SearchItemModel>
 }
