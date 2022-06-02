@@ -26,6 +26,7 @@ class ItemsFragment: Fragment() {
     private var pageNo = 1
     private var itemCount = 10
     private var totalPageCount = 0
+    private var searchStrTetris = "tetris"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +42,9 @@ class ItemsFragment: Fragment() {
     }
 
     private fun loadData(){
-        viewModel.getSearchItems("tetris",itemCount,pageNo)
+        viewModel.getSearchItems(searchStrTetris,itemCount,pageNo)
         viewModel.items.observe(this, Observer {
-            when (it.status) {
+            when (it?.status) {
                 Status.SUCCESS -> {
                     totalPageCount = it.data?.total_count?.div(10) ?: 0
                     binding.progressBar.visibility = View.GONE
@@ -64,9 +65,10 @@ class ItemsFragment: Fragment() {
 
     private fun setupUI(){
 
-        binding.searchEditText.setText("tetris")
+        binding.searchEditText.setText(searchStrTetris)
         binding.searchEditText.doAfterTextChanged {
             if(it?.length!! > 3) {
+                pageNo = 1
                 viewModel.getSearchItems(it.toString(),itemCount,pageNo)
             }
         }
@@ -74,15 +76,16 @@ class ItemsFragment: Fragment() {
         binding.imgCross.setOnClickListener {
             binding.searchEditText.setText("")
         }
+
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (!recyclerView.canScrollVertically(1) && pageNo <= totalPageCount) {
-                        pageNo++
-                        binding.rowLoader.visibility = View.VISIBLE
-                        viewModel.getSearchItems("tetris",itemCount,pageNo)
-                    }
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1) && pageNo <= totalPageCount) {
+                    pageNo++
+                    binding.rowLoader.visibility = View.VISIBLE
+                    viewModel.getSearchItems(binding.searchEditText.text.toString(),itemCount,pageNo)
                 }
-            })
+            }
+        })
     }
 }

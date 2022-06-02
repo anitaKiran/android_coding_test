@@ -20,8 +20,8 @@ class SearchViewModel @Inject constructor(
     private val networkHelper: NetworkHelper
     ) : ViewModel() {
 
-    private var _items = MutableLiveData<Resource<SearchItemModel>>()
-    val items: LiveData<Resource<SearchItemModel>> get() = _items
+    private var _items = MutableLiveData<Resource<SearchItemModel>?>()
+    val items: LiveData<Resource<SearchItemModel>?> get() = _items
 
     fun getSearchItems(searchStr: String,perPage:Int, pageNo:Int) {
         if (networkHelper.isNetworkConnected()) {
@@ -30,7 +30,6 @@ class SearchViewModel @Inject constructor(
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             _items.postValue(Resource.success(response.body()))
-                            Log.e("Viewmodel","api-success"+ response.body()?.items?.size)
                         }
                         else
                             _items.postValue(Resource.error(response.errorBody().toString(), null))
