@@ -1,6 +1,5 @@
 package com.anita_coding_challenge
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,14 +22,13 @@ class SearchViewModel @Inject constructor(
     private var _items = MutableLiveData<Resource<SearchItemModel>?>()
     val items: LiveData<Resource<SearchItemModel>?> get() = _items
 
-    fun getSearchItems(searchStr: String,perPage:Int, pageNo:Int) {
+    fun getSearchItems(searchStr: String,perPage:Int=10, pageNo:Int=1) {
         if (networkHelper.isNetworkConnected()) {
             viewModelScope.launch(Dispatchers.IO) {
                 repo.getItems(searchStr,perPage,pageNo).let { response ->
                     withContext(Dispatchers.Main) {
-                        if (response.isSuccessful) {
+                        if (response.isSuccessful)
                             _items.postValue(Resource.success(response.body()))
-                        }
                         else
                             _items.postValue(Resource.error(response.errorBody().toString(), null))
                     }

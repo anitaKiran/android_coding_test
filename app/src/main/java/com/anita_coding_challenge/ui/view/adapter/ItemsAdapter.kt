@@ -9,8 +9,14 @@ import com.anita_coding_challenge.databinding.RowItemBinding
 /**
  * Created by Anita Kiran on 6/1/2022.
  */
-class ItemsAdapter(var items: List<Item> = arrayListOf(), val viewModel: SearchViewModel)
-    : RecyclerView.Adapter<ItemsAdapter.DataViewHolder>() {
+class ItemsAdapter() : RecyclerView.Adapter<ItemsAdapter.DataViewHolder>() {
+
+    var list = arrayListOf<Item>()
+
+    fun setContentList(list: ArrayList<Item>) {
+        this.list = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,15 +27,12 @@ class ItemsAdapter(var items: List<Item> = arrayListOf(), val viewModel: SearchV
         return DataViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount() = list.size
 
     class DataViewHolder(val viewHolder: RowItemBinding): RecyclerView.ViewHolder(viewHolder.root)
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        holder.viewHolder.items = this.items[position]
-        holder.viewHolder.viewModel = viewModel
+        holder.viewHolder.items = this.list[position]
         holder.viewHolder.items?.has_wiki?.let { hasWiki ->
             if(hasWiki) {
                 holder.viewHolder.cardLayout.setBackgroundColor(Color.parseColor("#D2FAF6"))

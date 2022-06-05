@@ -7,10 +7,6 @@
         <variable
             name="items"
             type="com.anita_coding_challenge.Item" />
-
-        <variable
-            name="viewModel"
-            type="com.anita_coding_challenge.SearchViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

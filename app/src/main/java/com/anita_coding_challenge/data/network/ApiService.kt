@@ -12,7 +12,7 @@ interface ApiService {
     @GET("repositories")
     suspend fun getRepoItems(
         @Query("q") searchStr: String,
-        @Query("per_page") perPage: Int,
-        @Query("page") pageNo: Int
+        @Query("per_page") perPage: Int=10,
+        @Query("page") pageNo: Int =1
     ) : Response<SearchItemModel>
 }

@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-            name="viewModel"
-            type="com.anita_coding_challenge.SearchViewModel" />
-    </data>
-
-<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=""
     android:background="@color/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,26 +15,26 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/search_bar_style"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/searchEditText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
-            android:paddingStart="16dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/search_by_name"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:background="@android:color/transparent"
+            android:paddingStart="16dp"
             android:text=""
-            android:hint="@string/search_by_name"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
 
         <ImageView
             android:id="@+id/img_cross"
@@ -63,11 +54,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_8sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/row_loader"
         app:layout_constraintTop_toBottomOf="@+id/search_layout"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:items="@{viewModel.items.data.items}"
-        app:viewModel="@{viewModel}" />
+        tools:listitem="@layout/row_item" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -93,6 +83,5 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
 
 
